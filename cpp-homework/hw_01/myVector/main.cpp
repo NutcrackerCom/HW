@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 class Vector
 {
@@ -9,6 +10,11 @@ public:
       arr = new int[1];
       capacity = 1;
       len = 0;
+    }
+
+    Vector(const Vector& _arr): Vector(_arr.len, '\0')
+    {
+        std::memcpy(arr, _arr.arr, len);
     }
 
     Vector(size_t n, int num): arr(new int[n])
@@ -32,12 +38,43 @@ public:
       }    
     }
 
+    Vector& operator=(const Vector& _arr)
+    {
+        if(&_arr == this) return *this;
+        
+        delete[] arr;
+        arr = new int[_arr.capacity];
+        capacity = _arr.capacity;
+        len = _arr.len;
+        std::memcpy(arr, _arr.arr, len);
+        return *this;
+    }
+
     ~Vector()
     {
       delete[] arr;
     }
 
+     Vector& operator=(Vector _arr)
+    {
+        swap(_arr);
+        return *this;
+    }
+
+    int GetLen()
+    {
+      return len;
+    }
+
 private:
+
+    void swap(Vector& _arr)
+    {
+        std::swap(arr, _arr.arr);
+        std::swap(len, _arr.len);
+        std::swap(capacity, _arr.capacity);
+    }
+
     int* arr;
     size_t capacity;
     size_t len;
@@ -45,5 +82,5 @@ private:
 
 int main()
 {
-
+  
 }
