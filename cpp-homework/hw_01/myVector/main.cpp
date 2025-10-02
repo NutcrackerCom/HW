@@ -17,18 +17,17 @@ public:
         std::memcpy(arr, _arr.arr, len);
     }
 
-    Vector(size_t n, int num): arr(new int[n])
-                            , capacity(n)
+    Vector(size_t n, int num):capacity(n)
                             , len(n)
+                            , arr(new int[n])
     {
         std::fill(arr, arr+n, num);
     }
       
-    // что такое initializer_list ?
     Vector(std::initializer_list<int> lst)
-          : arr(new int[lst.size()])
+          : capacity(lst.size())
           , len(lst.size())
-          , capacity(lst.size())
+          , arr(new int[lst.size()])
     {
       size_t i=0;
       for(auto num: lst)
@@ -70,14 +69,14 @@ private:
 
     void swap(Vector& _arr)
     {
-        std::swap(arr, _arr.arr);
-        std::swap(len, _arr.len);
         std::swap(capacity, _arr.capacity);
+        std::swap(len, _arr.len);
+        std::swap(arr, _arr.arr);
     }
 
-    int* arr;
     size_t capacity;
     size_t len;
+    int* arr;
 }; 
 
 int main()

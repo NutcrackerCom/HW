@@ -6,9 +6,9 @@ class String
 public:
     String() {}
 
-    String(size_t n, char c): str(new char[n])
-                            , capacity(n)
+    String(size_t n, char c): capacity(n)
                             , len(n)
+                            , str(new char[n])
     {
         std::fill(str, str+n, c);
     }
@@ -20,9 +20,9 @@ public:
 
     // что такое initializer_list ?
     String(std::initializer_list<char> lst)
-          : str(new char[lst.size()])
-          , capacity(lst.size())
+          : capacity(lst.size())
           , len(lst.size())
+          , str(new char[lst.size()])
     {
       std::copy(lst.begin(), lst.end(), str);  
     }
@@ -42,14 +42,14 @@ private:
 
     void swap(String& _str)
     {
-        std::swap(str, _str.str);
-        std::swap(len, _str.len);
         std::swap(capacity, _str.capacity);
+        std::swap(len, _str.len);
+        std::swap(str, _str.str);
     }
 
-    char* str;
     size_t capacity;
     size_t len;
+    char* str;
 };
 
 int main()
