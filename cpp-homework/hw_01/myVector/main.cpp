@@ -12,22 +12,23 @@ public:
       len = 0;
     }
 
+    
+
     Vector(const Vector& _arr): Vector(_arr.len, '\0')
     {
         std::memcpy(arr, _arr.arr, len);
     }
 
-    Vector(size_t n, int num):capacity(n)
-                            , len(n)
-                            , arr(new int[n])
+    Vector(size_t n, int num): capacity(n)
+                             , len(n)
+                             , arr(new int[n])
     {
         std::fill(arr, arr+n, num);
     }
       
-    Vector(std::initializer_list<int> lst)
-          : capacity(lst.size())
-          , len(lst.size())
-          , arr(new int[lst.size()])
+    Vector(std::initializer_list<int> lst): capacity(lst.size())
+                                          , len(lst.size())
+                                          , arr(new int[lst.size()])
     {
       size_t i=0;
       for(auto num: lst)
@@ -60,11 +61,6 @@ public:
         return *this;
     }
 
-    int GetLen()
-    {
-      return len;
-    }
-
 private:
 
     void swap(Vector& _arr)
@@ -74,9 +70,9 @@ private:
         std::swap(arr, _arr.arr);
     }
 
-    size_t capacity;
-    size_t len;
-    int* arr;
+    size_t capacity=0;
+    size_t len=0;
+    int* arr=nullptr;
 }; 
 
 int main()

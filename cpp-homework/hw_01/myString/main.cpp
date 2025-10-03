@@ -13,6 +13,13 @@ public:
         std::fill(str, str+n, c);
     }
 
+    String(const char* _str): capacity(strlen(_str))
+                            , len(strlen(_str))
+                            , str(new char[len+1])
+    {
+        strcpy(str, _str);
+    }
+
     String(const String& _str): String(_str.len, '\0')
     {
         std::memcpy(str, _str.str, len);
@@ -47,12 +54,19 @@ private:
         std::swap(str, _str.str);
     }
 
-    size_t capacity;
-    size_t len;
-    char* str;
+    friend std::ostream& operator<<(std::ostream& ss, const String& str)
+    {
+        ss << (str.str ? str.str : "");
+        return ss;
+    }
+
+    size_t capacity=0;
+    size_t len=0;
+    char* str=nullptr;
 };
 
 int main()
 {
-
+    String s = "Hello";
+    std::cout << s;
 }
