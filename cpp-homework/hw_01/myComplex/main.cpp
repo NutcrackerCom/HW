@@ -17,8 +17,8 @@ public:
     }
 
 private:
-    double re;
-    double im;
+    double re=0;
+    double im=0;
 };
 
 int main()
