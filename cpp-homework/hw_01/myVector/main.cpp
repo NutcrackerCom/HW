@@ -119,10 +119,49 @@ public:
       }
       return true;
     }
+
     int operator[](int index)
     {
       return arr[index];
     }
+
+    bool erase_v(int index)
+    {
+      if(index > len || index < 0)
+      {
+        return false;
+      }
+      else
+      {
+        for(int i=index; i<len-1; i++)
+        {
+          arr[i] = arr[i+1];
+        }
+        len--;
+      }
+      return true;
+    }
+
+    bool erase_v(int start, int stop)
+    {
+      if(start >len || start < 0 || start > stop) return false;
+      if(stop > len)
+      {
+        len = start;
+        return true;
+      }
+      else
+      {
+        int i=stop-start+1;
+        while (i)
+        {
+          erase_v(start);
+          i--;
+        }
+      }
+      return true;
+    }
+
 private:
 
     bool resize_v()
@@ -160,9 +199,8 @@ private:
 
 int main()
 {
-  Vector v = {1,2,3,4,5,6};
-  Vector v2 = {10,20,30,40,50,60};
-
-  std::cout<<v[0]<<" "<<v[1];
-  
+  Vector v = {0,1,2,3,4,5,6};
+  std::cout << v << "\n";
+  v.erase_v(3);
+  std::cout << v;
 }
