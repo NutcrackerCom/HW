@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 static const unsigned short cp1251_to_unicode[128] = {
     0x0402, 0x0403, 0x201A, 0x0453, 0x201E, 0x2026, 0x2020, 0x2021,
@@ -20,16 +21,7 @@ static const unsigned short cp1251_to_unicode[128] = {
     0x0448, 0x0449, 0x044A, 0x044B, 0x044C, 0x044D, 0x044E, 0x044F
 };
 
-
-typedef struct
-{
-    char* bits;
-    int len;
-} utf8;
-
-
-int unicode_to_utf8(unsigned int code, unsigned char* utf8) 
-{
+int unicode_to_utf8(unsigned int code, unsigned char* utf8) {
     if (code <= 0x7F) {
         utf8[0] = code;
         return 1;
@@ -43,58 +35,28 @@ int unicode_to_utf8(unsigned int code, unsigned char* utf8)
         utf8[2] = 0x80 | (code & 0x3F);
         return 3;
     }
+    return 0;
 }
 
-
-void decToBinary(int n)
-{
-    // array to store binary number
-    int binaryNum[1000];
-
-    // counter for binary array
-    int i = 0;
-    while (n > 0) {
-
-        // storing remainder in binary array
-        binaryNum[i] = n % 2;
-        n = n / 2;
-        i++;
-    }
-
-    // printing binary array in reverse order
-    for (int j = i - 1; j >= 0; j--)
-        printf("%d", binaryNum[j]);
-
-    printf("\n");
-}
-
-/*char* cp1251_to_utf8(const char* str)
-{
-    if(!str) return NULL;
-
-    size_t len = strlen(str);
-    unsigned char* result = malloc(len * 3 + 1);
-    if (!result) return NULL;
-
-    for (size_t i = 0; i < len; i++) 
-    {
-        unsigned char c = str[i];
+char* cp1251_to_utf8(const int input, unsigned char* output) {
+    if (!input) return NULL;
+    unsigned char* p = output;
+    for (size_t i = 0; i < 1; i++) {
         unsigned int unicode;
 
-        if(c<128)
-        {
-            unicode=c;
-        }
-        else
-        {
-            unicode = cp1251_to_unicode[c-128];
+        if (input < 0x80) {
+            unicode = input;
+        } else {
+            unicode = cp1251_to_unicode[input - 0x80];
         }
 
-        int utf8_len = unicode_to_utf8(unicode, result);
-        result += utf8_len;
+        int utf8_len = unicode_to_utf8(unicode, p);
+        p += utf8_len;
     }
-    return result;
-}*/
+    *p = '\0';
+    return (char*)output;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -104,25 +66,15 @@ int main(int argc, char *argv[])
     }
 
     const char *input_filename = argv[1];
-    //const char *output_filename = argv[2];
+    const char *output_filename = argv[2];
 
     FILE *input_file = fopen(input_filename, "rb");
-    
+    FILE *output_file = fopen(output_filename, "wb");
     int byte;
+    unsigned char rt[5];
     while ((byte = fgetc(input_file)) != EOF) 
     {
-        if(byte < 127)
-        {
-            continue;
-        }
-        else
-        {
-            utf8 b = unicode_to_utf8(cp1251_to_unicode[byte-128]);
-            //decToBinary(cp1251_to_unicode[byte-128]);
-            printf("%d", b.len);
-            //printf("%d ", cp1251_to_unicode[byte-128]);
-        }
+        char* pr = cp1251_to_utf8(byte, rt);
+        fprintf(output_file, "%s", pr);
     }
-    printf("%s", input_filename);
-    
 }
