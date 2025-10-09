@@ -3,7 +3,7 @@
 
 class Vector
 {
-public:
+public: 
 
     Vector()
     {
@@ -12,9 +12,7 @@ public:
       len = 0;
     }
 
-    
-
-    Vector(const Vector& _arr): Vector(_arr.len, '\0')
+    Vector(const Vector& _arr): Vector(_arr.len, 0)
     {
         std::copy(_arr.arr, _arr.arr + _arr.len, arr);
     }
@@ -36,18 +34,6 @@ public:
         arr[i]=num;
         i++;
       }    
-    }
-
-    Vector& operator=(const Vector& _arr)
-    {
-        if(&_arr == this) return *this;
-        
-        delete[] arr;
-        arr = new int[_arr.capacity];
-        capacity = _arr.capacity;
-        len = _arr.len;
-        std::memcpy(arr, _arr.arr, len);
-        return *this;
     }
 
     ~Vector()
@@ -82,6 +68,7 @@ public:
     {
       if(len == 0) return false;
       len--;
+      return true;
     }
 
     int getCapacity() const
@@ -199,8 +186,10 @@ private:
 
 int main()
 {
-  Vector v = {0,1,2,3,4,5,6};
-  std::cout << v << "\n";
+  Vector v = {-1,0,1,2,3,4,5,6};
+  Vector v1 = {1,2,3};
+  v1 = v;
+  std::cout << v1<< "\n";
   v.erase_v(3);
   std::cout << v;
 }
