@@ -1,0 +1,141 @@
+#include "Vector.h"
+
+bool Vector::push_back(int num)
+{
+    if(capacity == len)
+      {
+        if(!resize()) return false;
+        arr[len] = num;
+        len++;
+        return true;
+      }
+      else
+      {
+        arr[len] = num;
+        len++;
+        return true;
+      }
+}
+
+bool Vector::pop_back()
+{
+    if(len == 0) return false;
+    len--;
+    return true;
+}
+
+int Vector::get_capacity() const
+{
+    return capacity;
+}
+
+bool Vector::insert(size_t index, int num)
+{
+    if(index >= len) return push_back(num);
+    else
+    {
+      if(capacity == len)
+      {
+        if(!resize()) return false;
+      }
+      len++;
+      int buf=arr[index];
+      arr[index] = num;
+      for(size_t i=index+1; i<len; i++)
+      {
+        int buf2 = arr[i];
+        arr[i] = buf;
+        buf =buf2;
+      }
+    }
+    return true;
+}
+
+bool Vector::insert(size_t index, const Vector& vec)
+{
+    for(size_t i=0; i<vec.len; i++)
+    {
+        insert(index, vec.arr[i]);
+    }
+    return true;
+}
+
+bool Vector::erase(size_t index)
+{
+    if(index > len || index < 0)
+      {
+        return false;
+      }
+      else
+      {
+        for(size_t i=index; i<len-1; i++)
+        {
+          arr[i] = arr[i+1];
+        }
+        len--;
+      }
+      return true;
+}
+
+bool Vector::erase(size_t start, size_t stop)
+{
+    if(start >len || start < 0 || start > stop) return false;
+      if(stop > len)
+      {
+        len = start;
+        return true;
+      }
+      else
+      {
+        int i=stop-start+1;
+        while (i)
+        {
+          erase(start);
+          i--;
+        }
+      }
+      return true;
+}
+
+int Vector::operator[](int index)
+{
+    return arr[index];
+}
+
+int Vector::operator[](int index) const
+{
+    return arr[index];
+}
+
+Vector& Vector::operator=(Vector _arr)
+{
+    swap(_arr);
+    return *this;
+}
+
+bool Vector::resize()
+{
+    capacity=1.5*(capacity) ;
+    int* new_arr = new int[capacity];
+    if(!new_arr) return false;
+    std::copy(arr, arr+len, new_arr);
+    std::swap(arr, new_arr);
+    delete[] new_arr;
+    return true;
+}
+
+void Vector::swap(Vector& _arr)
+{
+    std::swap(capacity, _arr.capacity);
+    std::swap(len, _arr.len);
+    std::swap(arr, _arr.arr);
+}
+
+std::ostream& operator<<(std::ostream& os, const Vector& vec)
+{
+    for(size_t i=0; i<vec.len; i++)
+    {
+        os << vec.arr[i] << " ";
+    }
+    return os;
+}
