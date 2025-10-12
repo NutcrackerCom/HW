@@ -48,6 +48,8 @@ public:
 
     int get_capacity() const;
 
+    int get_size() const;
+
     bool insert(size_t index, int num);
 
     bool insert(size_t index, const Vector& vec);
@@ -62,8 +64,25 @@ public:
 
     Vector& operator=(Vector _arr);
 
-private:
+    Vector& operator+=(const Vector& other);
+
+    Vector& operator-=(const Vector& other);
+
+    Vector& operator*=(int num);
+
+    Vector& operator/=(int num);
+
+    friend Vector operator+(const Vector& lvec, const Vector& rvec);
+
+    friend Vector operator-(const Vector& lvec, const Vector& rvec);
+
+    friend Vector operator*(const Vector& other, int num);
+
+    friend Vector operator/(const Vector& other, int num);
+
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
+
+private:
     
     bool resize();
 
