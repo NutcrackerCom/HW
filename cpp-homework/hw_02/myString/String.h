@@ -13,6 +13,7 @@ public:
                             , str(new char[capacity])
     {
         std::fill(str, str+n, c);
+        str[n] = '\0';
     }
 
     String(const char* _str): capacity(1.5*strlen(_str))
@@ -25,6 +26,7 @@ public:
     String(const String& _str): String(_str.len, '\0')
     {
         std::copy(_str.str, _str.str + _str.len, str);
+        str[len] = '\0';
     }
 
     String(std::initializer_list<char> lst)
@@ -33,6 +35,7 @@ public:
           , str(new char[capacity])
     {
       std::copy(lst.begin(), lst.end(), str);  
+      str[len] = '\0';
     }
 
     ~String()
@@ -40,7 +43,7 @@ public:
         delete[] str;
     }
 
-    String copy(int index, int len_to_cp);
+    String copy(size_t index, size_t len_to_cp);
 
     String& operator=(String _str);
 

@@ -1,12 +1,14 @@
 #include "String.h"
 
-String String::copy(int index, int len_to_cp)
+String String::copy(size_t index, size_t len_to_cp)
 {
     if(index >= len) return String();
     if(index+len_to_cp>len) len_to_cp=len-index;
 
     String res(len_to_cp, '\0');
+    std::cout << res.len << " len ";
     std::copy(str+index, str+index+len_to_cp, res.str);
+    res.str[len_to_cp] = '\0';
     return res;
 }
 
