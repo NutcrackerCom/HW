@@ -2,13 +2,8 @@
 
 int main()
 {
-    Tamagotchi tom;
+    Jellyfish tom;
+    tom.feed();
     tom.print_all_status();
-    tom.new_day();
-    tom.print_all_status();
-    tom.new_day();
-    tom.print_all_status();
-    tom.new_day();
-    tom.print_all_status();
-    tom.new_day();
+    tom.say_bul_bul();
 }

@@ -4,7 +4,8 @@ hunger_level Tamagotchi::feed()
 {
     hunger+=20;
     hunger_level status = hunger_status::get_status(hunger);
-    std::cout << hunger_status::get_description(status);
+    if(status==hunger_level::overeating) health-=5;
+    std::cout << hunger_status::get_description(status)<<std::endl;
     return status;
 }
 
@@ -12,7 +13,7 @@ happiness_level Tamagotchi::play()
 {
     happiness+=20;
     happiness_level status = happiness_status::get_status(happiness);
-    std::cout << happiness_status::get_description(status);
+    std::cout << happiness_status::get_description(status)<<std::endl;
     return status;
 }
 
@@ -43,4 +44,25 @@ void Tamagotchi::print_all_status()
     std::cout << "happiness - " << happiness_status::get_description(hpy_status) << std::endl;
     std::cout << "hunger - " << hunger_status::get_description(hgr_status) << std::endl;
     std::cout << "=========================\n";
+}
+
+void Cat::say_meow()
+{
+    std::cout << "────୨ৎ────\n";
+    std::cout << "𝑴𝒆𝒐𝒘. ദ്ദി（•˕•マ.ᐟ\n"; 
+    std::cout << "────୨ৎ────\n";
+}
+
+void Dog::say_woof()
+{
+    std::cout << "────୨ৎ────\n";
+    std::cout << "૮⍝•ᴥ•⍝ა\n"; 
+    std::cout << "────୨ৎ────\n";
+}
+
+void Jellyfish::say_bul_bul()
+{
+    std::cout << "────୨ৎ────\n";
+    std::cout << "∘˙○˚.•\n"; 
+    std::cout << "────୨ৎ────\n";
 }

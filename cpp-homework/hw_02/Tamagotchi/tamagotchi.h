@@ -134,3 +134,51 @@ private:
     int happiness = 100;
     uint day = 0;
 };
+
+class Cat : public Tamagotchi
+{
+public:
+    Cat()
+    {
+        std::cout << "(•˕•マ.ᐟ" << std::endl;
+    }
+
+    void say_meow();
+
+    ~Cat()
+    {
+        std::cout << "ฅ(•˕•マ" << std::endl;
+    }
+};
+
+class Dog : public Tamagotchi
+{
+public:
+    Dog()
+    {
+        std::cout << "૮･ﻌ･ა" << std::endl;
+    }
+
+    void say_woof();
+
+    ~Dog()
+    {
+        std::cout << "૮•ﻌ-ა" << std::endl;
+    }
+};
+
+class Jellyfish : public Tamagotchi
+{
+public:
+    Jellyfish()
+    {
+        std::cout << "ଳ" << std::endl;
+    }
+
+    void say_bul_bul();
+
+    ~Jellyfish()
+    {
+        std::cout << "⋅˚₊‧ ଳ ‧₊˚ ⋅" << std::endl;
+    }
+};
