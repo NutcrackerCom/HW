@@ -58,27 +58,13 @@ public:
 
     bool erase(size_t start, size_t stop);
 
+    //Vector for_each(int start, int stop, int(*op)(int, int));
+
     int operator[](int index);
 
     int operator[](int index) const;
 
     Vector& operator=(Vector _arr);
-
-    Vector& operator+=(const Vector& other);
-
-    Vector& operator-=(const Vector& other);
-
-    Vector& operator*=(int num);
-
-    Vector& operator/=(int num);
-
-    friend Vector operator+(const Vector& lvec, const Vector& rvec);
-
-    friend Vector operator-(const Vector& lvec, const Vector& rvec);
-
-    friend Vector operator*(const Vector& other, int num);
-
-    friend Vector operator/(const Vector& other, int num);
 
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
 

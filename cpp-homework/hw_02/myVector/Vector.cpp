@@ -102,6 +102,15 @@ bool Vector::erase(size_t start, size_t stop)
       return true;
 }
  
+/*Vector Vector::for_each(int start, int stop, int(*op)(int, int))
+{
+  if(start >len || start < 0 || start > stop || stop > len) return *this;
+  
+  for(size_t i=start; i<=stop; i++)
+  {
+    //...
+  }
+}*/
 
 int Vector::operator[](int index)
 {
@@ -117,82 +126,6 @@ Vector& Vector::operator=(Vector _arr)
 {
     swap(_arr);
     return *this;
-}
-
-Vector& Vector::operator+=(const Vector& other)
-{
-  if(len != other.len)
-  {
-    std::cout << "len is no equal\n";
-    return *this;
-  }
-  capacity = 1.5*(len+other.len);
-  for(size_t i=0; i<len; i++)
-  {
-    arr[i] += other.arr[i];
-  }
-  return *this;
-}
-
-Vector& Vector::operator-=(const Vector& other)
-{
-  if(len != other.len)
-  {
-    std::cout << "len is no equal\n";
-    return *this;
-  }
-  capacity = 1.5*(len+other.len);
-  for(size_t i=0; i<len; i++)
-  {
-    arr[i] -= other.arr[i];
-  }
-  return *this;
-}
-
-Vector& Vector::operator*=(int num)
-{
-  for(size_t i=0; i<len; i++)
-  {
-    arr[i]*=num;
-  }
-  return *this;
-}
-
-Vector& Vector::operator/=(int num)
-{
-  for(size_t i=0; i<len; i++)
-  {
-    arr[i]/=num;
-  }
-  return *this;
-}
-
-Vector operator+(const Vector& lvec, const Vector& rvec)
-{
-  Vector res(lvec);
-  res+=rvec;
-  return res;
-}
-
-Vector operator-(const Vector& lvec, const Vector& rvec)
-{
-  Vector res(lvec);
-  res-=rvec;
-  return res;
-}
-
-Vector operator*(const Vector& other, int num)
-{
-  Vector res(other);
-  res*=num;
-  return res;
-}
-
-Vector operator/(const Vector& other, int num)
-{
-  Vector res(other);
-  res/=num;
-  return res;
 }
 
 bool Vector::resize()

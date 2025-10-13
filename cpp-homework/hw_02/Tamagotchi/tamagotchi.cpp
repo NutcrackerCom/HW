@@ -45,24 +45,3 @@ void Tamagotchi::print_all_status()
     std::cout << "hunger - " << hunger_status::get_description(hgr_status) << std::endl;
     std::cout << "=========================\n";
 }
-
-void Cat::say_meow()
-{
-    std::cout << "────୨ৎ────\n";
-    std::cout << "𝑴𝒆𝒐𝒘. ദ്ദി（•˕•マ.ᐟ\n"; 
-    std::cout << "────୨ৎ────\n";
-}
-
-void Dog::say_woof()
-{
-    std::cout << "────୨ৎ────\n";
-    std::cout << "૮⍝•ᴥ•⍝ა\n"; 
-    std::cout << "────୨ৎ────\n";
-}
-
-void Jellyfish::say_bul_bul()
-{
-    std::cout << "────୨ৎ────\n";
-    std::cout << "∘˙○˚.•\n"; 
-    std::cout << "────୨ৎ────\n";
-}
