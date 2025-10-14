@@ -97,9 +97,14 @@ Complex Complex::operator/(double num)
     return res;
 }
 
-bool Complex::operator==(const Complex& other)
+bool Complex::operator==(const Complex& other) const
 {
     return (re==other.re)&&(im==other.im);
+}
+
+bool Complex::operator!=(const Complex& other) const
+{
+    return !(*this==other);
 }
 
 std::ostream& operator<<(std::ostream& os, const Complex& complex)

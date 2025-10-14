@@ -8,11 +8,8 @@ public:
     Complex(){}
     Complex(double _re, double _im ): re(_re), im(_im) {}
     Complex(double _re): re(_re) {}
-    Complex(const Complex& _complex): Complex(0,0)
-    {
-        re = _complex.re;
-        im = _complex.im;
-    };
+    Complex(const Complex& _complex): Complex(_complex.re,_complex.im) {}
+
     Complex& operator=(const Complex& _comp);
 
     Complex& operator+=(const Complex& other);
@@ -39,7 +36,9 @@ public:
 
     Complex operator/(double num);
 
-    bool operator==(const Complex& other);
+    bool operator==(const Complex& other) const;
+
+    bool operator!=(const Complex& other) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Complex& complex);
 
