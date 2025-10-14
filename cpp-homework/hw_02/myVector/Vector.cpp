@@ -67,7 +67,7 @@ bool Vector::insert(size_t index, const Vector& vec)
 
 bool Vector::erase(size_t index)
 {
-    if(index > len || index < 0)
+    if(index > len)
       {
         return false;
       }
@@ -84,7 +84,7 @@ bool Vector::erase(size_t index)
 
 bool Vector::erase(size_t start, size_t stop)
 {
-    if(start >len || start < 0 || start > stop) return false;
+    if(start >len || start > stop) return false;
       if(stop > len)
       {
         len = start;
@@ -126,6 +126,16 @@ Vector& Vector::operator=(Vector _arr)
 {
     swap(_arr);
     return *this;
+}
+
+bool Vector::operator==(const Vector& _arr)
+{
+    if(len != _arr.len) return false;
+    for(size_t i=0; i<len; i++)
+    {
+      if(arr[i]!=_arr.arr[i]) return false;
+    }
+    return true;
 }
 
 bool Vector::resize()

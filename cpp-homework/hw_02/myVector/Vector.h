@@ -46,9 +46,9 @@ public:
 
     bool pop_back();
 
-    int get_capacity() const;
+    inline int get_capacity() const;
 
-    int get_size() const;
+    inline int get_size() const;
 
     bool insert(size_t index, int num);
 
@@ -66,6 +66,8 @@ public:
 
     Vector& operator=(Vector _arr);
 
+    bool operator==(const Vector& _arr);
+
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
 
 private:
@@ -78,5 +80,3 @@ private:
     size_t len=0;
     int* arr=nullptr;
 };
-
-//std::ostream& operator<<(std::ostream& os, const Vector& vec);

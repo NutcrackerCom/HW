@@ -21,9 +21,23 @@ public:
 
     Complex& operator*=(const Complex& other);
 
-    Complex& operator+(const Complex& other);
+    Complex& operator*=(double num);
 
-    Complex& operator-(const Complex& other);
+    Complex& operator/=(const Complex& other);
+
+    Complex& operator/=(double num);
+
+    Complex operator+(const Complex& other);
+
+    Complex operator-(const Complex& other);
+
+    Complex operator*(const Complex& other);
+
+    Complex operator*(double num);
+
+    Complex operator/(const Complex& other);
+
+    Complex operator/(double num);
 
     bool operator==(const Complex& other);
 
