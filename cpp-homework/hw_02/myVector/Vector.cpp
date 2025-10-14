@@ -5,16 +5,10 @@ bool Vector::push_back(int num)
     if(capacity == len)
       {
         if(!resize()) return false;
-        arr[len] = num;
-        len++;
-        return true;
       }
-      else
-      {
-        arr[len] = num;
-        len++;
-        return true;
-      }
+      arr[len] = num;
+      len++;
+      return true;
 }
 
 bool Vector::pop_back()
@@ -112,7 +106,7 @@ bool Vector::erase(size_t start, size_t stop)
   }
 }*/
 
-int Vector::operator[](int index)
+int& Vector::operator[](int index)
 {
     return arr[index];
 }
@@ -122,13 +116,13 @@ int Vector::operator[](int index) const
     return arr[index];
 }
 
-Vector& Vector::operator=(Vector _arr)
+Vector& Vector::operator=(Vector& _arr)
 {
     swap(_arr);
     return *this;
 }
 
-bool Vector::operator==(const Vector& _arr)
+bool Vector::operator==(const Vector& _arr) const
 {
     if(len != _arr.len) return false;
     for(size_t i=0; i<len; i++)
@@ -138,9 +132,14 @@ bool Vector::operator==(const Vector& _arr)
     return true;
 }
 
+bool Vector::operator!=(const Vector& _arr) const
+{
+  return !(*this == _arr);
+}
+
 bool Vector::resize()
 {
-    capacity=1.5*(capacity) ;
+    capacity=static_cast<int>(koef_expansion*(capacity));
     int* new_arr = new int[capacity];
     if(!new_arr) return false;
     std::copy(arr, arr+len, new_arr);

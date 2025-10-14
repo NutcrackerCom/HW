@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstring>
 
+#define koef_expansion 1.5
+
 class Vector
 {
 public:
@@ -18,14 +20,14 @@ public:
         std::copy(_arr.arr, _arr.arr + _arr.len, arr);
     }
 
-    Vector(size_t n, int num): capacity(1.5*n)
+    Vector(size_t n, int num): capacity(static_cast<int>(koef_expansion*n))
                              , len(n)
                              , arr(new int[capacity])
     {
         std::fill(arr, arr+n, num);
     }
       
-    Vector(std::initializer_list<int> lst): capacity(1.5*lst.size())
+    Vector(std::initializer_list<int> lst): capacity(static_cast<int>(koef_expansion*lst.size()))
                                           , len(lst.size())
                                           , arr(new int[capacity])
     {
@@ -60,13 +62,15 @@ public:
 
     //Vector for_each(int start, int stop, int(*op)(int, int));
 
-    int operator[](int index);
+    int& operator[](int index);
 
     int operator[](int index) const;
 
-    Vector& operator=(Vector _arr);
+    Vector& operator=(Vector& _arr);
 
-    bool operator==(const Vector& _arr);
+    bool operator==(const Vector& _arr) const;
+
+    bool operator!=(const Vector& _arr) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
 
