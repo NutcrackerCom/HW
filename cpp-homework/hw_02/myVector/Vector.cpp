@@ -42,9 +42,7 @@ bool Vector::insert(size_t index, int num)
       arr[index] = num;
       for(size_t i=index+1; i<len; i++)
       {
-        int buf2 = arr[i];
-        arr[i] = buf;
-        buf =buf2;
+        std::swap(arr[i], buf);
       }
     }
     return true;
@@ -52,10 +50,24 @@ bool Vector::insert(size_t index, int num)
 
 bool Vector::insert(size_t index, const Vector& vec)
 {
-    for(size_t i=0; i<vec.len; i++)
+    int new_capacity = static_cast<size_t>(koef_expansion*(capacity+vec.len));
+    int* new_arr = new int[new_capacity];
+    for(size_t i=0; i<index;i++)
     {
-        insert(index, vec.arr[i]);
+      new_arr[i]=arr[i];
     }
+    for(size_t i=0; i<vec.len;i++)
+    {
+      new_arr[index+i]=vec.arr[i];
+    }
+    for(size_t i=index; i<len; i++)
+    {
+      new_arr[i+vec.len]=arr[i];
+    }
+    delete [] arr;
+    arr = new_arr;
+    capacity = new_capacity;
+    len += vec.len;
     return true;
 }
 
@@ -79,19 +91,30 @@ bool Vector::erase(size_t index)
 bool Vector::erase(size_t start, size_t stop)
 {
     if(start >len || start > stop) return false;
-      if(stop > len)
+      if(stop >= len)
       {
         len = start;
         return true;
       }
       else
       {
-        int i=stop-start+1;
-        while (i)
+        size_t new_capacity = static_cast<size_t>(koef_expansion*(len-(stop-start)));
+        int* new_arr = new int[new_capacity];
+        if(!new_arr) return false;
+        size_t diff = stop-start;
+        for(size_t i=0; i<start; i++)
         {
-          erase(start);
-          i--;
+          new_arr[i]=arr[i];
         }
+
+        for(size_t i=0; i<diff;i++)
+        {
+          new_arr[start+i]=arr[stop+i];
+        }
+        delete [] arr;
+        arr = new_arr;
+        capacity = new_capacity;
+        len -= diff;
       }
       return true;
 }
@@ -116,9 +139,11 @@ int Vector::operator[](int index) const
     return arr[index];
 }
 
-Vector& Vector::operator=(Vector& _arr)
+Vector& Vector::operator=(const Vector& _arr)
 {
-    swap(_arr);
+    if(_arr == *this) return *this;
+    Vector c_arr(_arr);
+    swap(c_arr);
     return *this;
 }
 
@@ -137,9 +162,9 @@ bool Vector::operator!=(const Vector& _arr) const
   return !(*this == _arr);
 }
 
-bool Vector::resize()
+bool Vector::resize(int n)
 {
-    capacity=static_cast<int>(koef_expansion*(capacity));
+    capacity=static_cast<size_t>(koef_expansion*(capacity+n));
     int* new_arr = new int[capacity];
     if(!new_arr) return false;
     std::copy(arr, arr+len, new_arr);

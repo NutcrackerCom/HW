@@ -20,14 +20,14 @@ public:
         std::copy(_arr.arr, _arr.arr + _arr.len, arr);
     }
 
-    Vector(size_t n, int num): capacity(static_cast<int>(koef_expansion*n))
+    Vector(size_t n, int num): capacity(static_cast<size_t>(koef_expansion*n))
                              , len(n)
                              , arr(new int[capacity])
     {
         std::fill(arr, arr+n, num);
     }
       
-    Vector(std::initializer_list<int> lst): capacity(static_cast<int>(koef_expansion*lst.size()))
+    Vector(std::initializer_list<int> lst): capacity(static_cast<size_t>(koef_expansion*lst.size()))
                                           , len(lst.size())
                                           , arr(new int[capacity])
     {
@@ -66,7 +66,7 @@ public:
 
     int operator[](int index) const;
 
-    Vector& operator=(Vector& _arr);
+    Vector& operator=(const Vector& _arr);
 
     bool operator==(const Vector& _arr) const;
 
@@ -76,7 +76,7 @@ public:
 
 private:
     
-    bool resize();
+    bool resize(int n=0);
 
     void swap(Vector& _arr);
 

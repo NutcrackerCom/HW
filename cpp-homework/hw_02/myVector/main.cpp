@@ -3,10 +3,12 @@
 
 int main()
 {
-    Vector v = {-1,0,1,2,3,4,5,6};
-    Vector v1 = {-1,0,1,2,3,4,5,6};
-    Vector v2 = {1,0,1,2,3,4,5,6};
-    std::cout << (v == v2) << "\n";
-    std::cout << (v == v1) << "\n";
-    std::cout << v;
+    Vector v = {0,1,2,3,4,5,6};
+    Vector v1 = {-1,-2,-3};
+    Vector v2 = {0,1,2,3,4,5,6};
+    v.insert(3, v1);
+    //std::cout << v << "\n";
+    v2.erase(5,4);
+    v2=v1;
+    std::cout << v2 << "\n";
 }
