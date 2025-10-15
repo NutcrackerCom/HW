@@ -1,6 +1,6 @@
 #include "jellyfish.h"
 
-void Jellyfish::say_bul_bul()
+void Jellyfish::make_a_sound()
 {
     std::cout << "────୨ৎ────\n";
     std::cout << "∘˙○˚.•\n"; 
@@ -9,6 +9,6 @@ void Jellyfish::say_bul_bul()
 
 happiness_level Jellyfish::play()
 {
-    Jellyfish::say_bul_bul();
+    Jellyfish::make_a_sound();
     return Tamagotchi::play();
 }

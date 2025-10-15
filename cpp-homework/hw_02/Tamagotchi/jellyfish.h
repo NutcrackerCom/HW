@@ -13,7 +13,7 @@ public:
         std::cout << "ଳ" << std::endl;
     }
 
-    void say_bul_bul();
+    void make_a_sound() override;
 
     happiness_level play() override;
 

@@ -13,7 +13,7 @@ public:
         std::cout << "૮･ﻌ･ა" << std::endl;
     }
 
-    void say_woof();
+    void make_a_sound() override;
 
     happiness_level  play() override;
 
