@@ -38,9 +38,11 @@ bool Vector::insert(size_t index, int num)
         if(!resize()) return false;
       }
       len++;
-      for(size_t i=index; i<len; i++)
+      int buf=arr[index];
+      arr[index] = num;
+      for(size_t i=index+1; i<len; i++)
       {
-        std::swap(arr[i], num);
+        std::swap(arr[i], buf);
       }
     }
     return true;
@@ -48,7 +50,7 @@ bool Vector::insert(size_t index, int num)
 
 bool Vector::insert(size_t index, const Vector& vec)
 {
-    int new_capacity = static_cast<size_t>(koef_expansion*(static_cast<float>(capacity)+vec.len));
+    int new_capacity = static_cast<size_t>(koef_expansion*(capacity+vec.len));
     int* new_arr = new int[new_capacity];
     for(size_t i=0; i<index;i++)
     {
@@ -162,7 +164,7 @@ bool Vector::operator!=(const Vector& _arr) const
 
 bool Vector::resize(int n)
 {
-    capacity=static_cast<size_t>(koef_expansion*(static_cast<float>(capacity)+n));
+    capacity=static_cast<size_t>(koef_expansion*(capacity+n));
     int* new_arr = new int[capacity];
     if(!new_arr) return false;
     std::copy(arr, arr+len, new_arr);
@@ -185,4 +187,17 @@ std::ostream& operator<<(std::ostream& os, const Vector& vec)
         os << vec.arr[i] << " ";
     }
     return os;
+}
+
+std::istream& operator>>(std::istream& is, Vector& vec)
+{
+  std::string data;
+  std::getline(is, data);
+  std::stringstream ss(data);
+  int num;
+  while(ss>>num)
+  {
+    vec.push_back(num);
+  }
+  return is;
 }

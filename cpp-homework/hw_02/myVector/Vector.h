@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <cstring>
-
+#include <sstream>
+#include <stdexcept>
 #define koef_expansion 1.5
 
 class Vector
@@ -50,7 +52,7 @@ public:
 
     inline int get_capacity() const;
 
-    inline int get_size() const;
+    int get_size() const;
 
     bool insert(size_t index, int num);
 
@@ -73,6 +75,8 @@ public:
     bool operator!=(const Vector& _arr) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
+
+    friend std::istream& operator>>(std::istream& is, Vector& vec);
 
 private:
     
