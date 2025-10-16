@@ -19,15 +19,16 @@ void String::swap(String& _str)
     std::swap(str, _str.str);
 }
 
-String& String::operator=(String _str)
+String& String::operator=(const String& _str)
 {
-    swap(_str);
+    String s(_str);
+    swap(s);
     return *this;
 }
 
 String& String::operator+=(const String& other)
 {
-    capacity = 1.5*(len+other.len);
+    capacity = static_cast<size_t>(koef_expansion*(len+other.len));
     char* new_str = new char[capacity];
     if(!new_str) return *this;
     strcpy(new_str, str);

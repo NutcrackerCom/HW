@@ -3,12 +3,14 @@
 #include <iostream>
 #include <cstring>
 
+#define koef_expansion 1.5
+
 class String
 {
 public:
     String() {}
 
-    String(size_t n, char c): capacity(1.5*n)
+    String(size_t n, char c): capacity(static_cast<size_t>(koef_expansion*n))
                             , len(n)
                             , str(new char[capacity])
     {
@@ -16,7 +18,7 @@ public:
         str[n] = '\0';
     }
 
-    String(const char* _str): capacity(1.5*strlen(_str))
+    String(const char* _str): capacity(static_cast<size_t>(koef_expansion*strlen(_str)))
                             , len(strlen(_str))
                             , str(new char[capacity])
     {
@@ -30,7 +32,7 @@ public:
     }
 
     String(std::initializer_list<char> lst)
-          : capacity(1.5*lst.size())
+          : capacity(static_cast<size_t>(koef_expansion*lst.size()))
           , len(lst.size())
           , str(new char[capacity])
     {
@@ -45,7 +47,7 @@ public:
 
     String copy(size_t index, size_t len_to_cp);
 
-    String& operator=(String _str);
+    String& operator=(const String& _str);
 
     String& operator+=(const String& other);
 
