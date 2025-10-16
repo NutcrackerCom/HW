@@ -11,7 +11,7 @@ hunger_level Tamagotchi::feed()
 
 happiness_level Tamagotchi::play()
 {
-    happiness+=20;
+    happiness+=happiness_to_health.at(happiness_level::happy);
     happiness_level status = happiness_status::get_status(happiness);
     std::cout << happiness_status::get_description(status)<<std::endl;
     return status;

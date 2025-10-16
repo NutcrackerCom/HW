@@ -38,11 +38,9 @@ bool Vector::insert(size_t index, int num)
         if(!resize()) return false;
       }
       len++;
-      int buf=arr[index];
-      arr[index] = num;
-      for(size_t i=index+1; i<len; i++)
+      for(size_t i=index; i<len; i++)
       {
-        std::swap(arr[i], buf);
+        std::swap(arr[i], num);
       }
     }
     return true;
@@ -50,7 +48,7 @@ bool Vector::insert(size_t index, int num)
 
 bool Vector::insert(size_t index, const Vector& vec)
 {
-    int new_capacity = static_cast<size_t>(koef_expansion*(capacity+vec.len));
+    int new_capacity = static_cast<size_t>(koef_expansion*(static_cast<float>(capacity)+vec.len));
     int* new_arr = new int[new_capacity];
     for(size_t i=0; i<index;i++)
     {
@@ -164,7 +162,7 @@ bool Vector::operator!=(const Vector& _arr) const
 
 bool Vector::resize(int n)
 {
-    capacity=static_cast<size_t>(koef_expansion*(capacity+n));
+    capacity=static_cast<size_t>(koef_expansion*(static_cast<float>(capacity)+n));
     int* new_arr = new int[capacity];
     if(!new_arr) return false;
     std::copy(arr, arr+len, new_arr);
