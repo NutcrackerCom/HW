@@ -7,13 +7,13 @@ int main()
 {
     Cat cat;
     cat.print_all_status();
-    cat.new_day();
+    cat.sleep(11);
     cat.print_all_status();
-    cat.new_day();
+    cat.sleep(11);
     cat.print_all_status();
-    cat.new_day();
+    cat.sleep(11);
     cat.print_all_status();
-    cat.new_day();
+    cat.sleep(11);
     cat.print_all_status();
-    cat.new_day();
+    
 }

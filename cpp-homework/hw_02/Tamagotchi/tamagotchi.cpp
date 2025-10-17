@@ -2,6 +2,8 @@
 
 hunger_level Tamagotchi::feed()
 {
+    // надо добавить разные явства и вынести hunger в наследников
+    // давать разный баф от разной еды
     hunger+=20;
     hunger_level status = hunger_status::get_status(hunger);
     if(status==hunger_level::overeating) health-= hunger_to_health.at(status);
@@ -11,16 +13,20 @@ hunger_level Tamagotchi::feed()
 
 happiness_level Tamagotchi::play()
 {
-    happiness+=happiness_to_health.at(happiness_level::happy);
+    // добавить разные виды игр и бонус от них
+    // сделать так что бы кот не играл с косточкой, а пес с мышкой 
+    happiness+=happiness_to_health.at(happiness_level::happy); // ?? 
     happiness_level status = happiness_status::get_status(happiness);
     std::cout << happiness_status::get_description(status)<<std::endl;
     return status;
 }
 
-void Tamagotchi::new_day()
+bool Tamagotchi::new_day()
 {
-    happiness-=happiness_to_health.at(happiness_level::sad);
-    hunger-=hunger_to_health.at(hunger_level::dies_of_hunger);
+    // надо ли создавать структуру с дебафами за прошедший день ?
+
+    happiness-=happiness_to_health.at(happiness_level::sad); // ??
+    hunger-=hunger_to_health.at(hunger_level::dies_of_hunger); // ??
     happiness_level hpy_status = happiness_status::get_status(happiness);
     hunger_level hgr_status = hunger_status::get_status(hunger);
 
@@ -30,7 +36,14 @@ void Tamagotchi::new_day()
     else if(hgr_status == hunger_level::hungry) health-=hunger_to_health.at(hgr_status);
     else if(hgr_status == hunger_level::overeating) health-=hunger_to_health.at(hgr_status);
 
-    if(health <= 0) std::cout << "Ваш питомец умер\n";
+    if(health <= 0)
+    {
+        // можно добавить вывод статистики при конце игры
+        std::cout << "Ваш питомец умер\n";
+        return false;
+    }
+    else health+=health_to_health.at(health_level::healthy); // ??
+    return true;
 
 }
 
@@ -47,3 +60,8 @@ void Tamagotchi::print_all_status()
 }
 
 void Tamagotchi::make_a_sound() {};
+
+void Tamagotchi::sleep([[maybe_unused]] uint hours)
+{
+    new_day();
+}

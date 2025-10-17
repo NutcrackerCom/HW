@@ -5,6 +5,8 @@
 
 #include "tamagotchi.h"
 
+#define jellyfish_sleep_hours 4
+
 class Jellyfish : public Tamagotchi
 {
 public:
@@ -16,6 +18,8 @@ public:
     void make_a_sound() override;
 
     happiness_level play() override;
+
+    void sleep(uint hours=0) override;
 
     ~Jellyfish()
     {

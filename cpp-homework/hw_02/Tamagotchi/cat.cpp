@@ -24,3 +24,13 @@ happiness_level Cat::play()
     Cat::make_a_sound();
     return Tamagotchi::play();
 }
+
+void Cat::sleep(uint hours)
+{
+    sleep_hours+=hours;
+    if(sleep_hours>=cats_sleep_hours)
+    {
+        sleep_hours-=sleep_hours;
+        Tamagotchi::sleep();
+    }
+}
