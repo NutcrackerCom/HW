@@ -7,34 +7,35 @@
 #include <stdexcept>
 #define koef_expansion 1.5
 
+template <class T>
 class Vector
 {
 public:
     Vector()
     {
-      arr = new int[1];
+      arr = new T[1];
       capacity = 1;
       len = 0;
     }
 
-    Vector(const Vector& _arr): Vector(_arr.len, 0)
+    Vector(const Vector<T>& _arr): Vector(_arr.len, 0)
     {
         std::copy(_arr.arr, _arr.arr + _arr.len, arr);
     }
 
-    Vector(size_t n, int num): capacity(static_cast<size_t>(koef_expansion*n))
+    Vector(size_t n, T num): capacity(static_cast<size_t>(koef_expansion*n))
                              , len(n)
-                             , arr(new int[capacity])
+                             , arr(new T[capacity])
     {
         std::fill(arr, arr+n, num);
     }
       
-    Vector(std::initializer_list<int> lst): capacity(static_cast<size_t>(koef_expansion*lst.size()))
+    Vector(std::initializer_list<T> lst): capacity(static_cast<size_t>(koef_expansion*lst.size()))
                                           , len(lst.size())
-                                          , arr(new int[capacity])
+                                          , arr(new T[capacity])
     {
       size_t i=0;
-      for(auto num: lst)
+      for(T num: lst)
       {
         arr[i]=num;
         i++;
@@ -46,15 +47,21 @@ public:
       delete[] arr;
     }
 
-    bool push_back(int num);
+    bool push_back(T num);
 
     bool pop_back();
 
-    inline int get_capacity() const;
+    int get_capacity() const
+    {
+      return capacity;
+    }
 
-    int get_size() const;
+    size_t get_size() const
+    {
+      return len;
+    }
 
-    bool insert(size_t index, int num);
+    bool insert(size_t index, T num);
 
     bool insert(size_t index, const Vector& vec);
 
@@ -62,11 +69,9 @@ public:
 
     bool erase(size_t start, size_t stop);
 
-    //Vector for_each(int start, int stop, int(*op)(int, int));
+    T& operator[](int index);
 
-    int& operator[](int index);
-
-    int operator[](int index) const;
+    T operator[](int index) const;
 
     Vector& operator=(const Vector& _arr);
 
@@ -74,17 +79,23 @@ public:
 
     bool operator!=(const Vector& _arr) const;
 
-    friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
-
-    friend std::istream& operator>>(std::istream& is, Vector& vec);
+    template<class U>
+    friend std::ostream& operator<<(std::ostream& os, const Vector<U>& vec)
+    {
+    for(size_t i=0; i<vec.len; i++)
+    {
+        os << vec.arr[i] << " ";
+    }
+    return os;
+    }
 
 private:
     
     bool resize(int n=0);
 
-    void swap(Vector& _arr);
+    void swap(Vector<T>& _arr);
 
     size_t capacity=0;
     size_t len=0;
-    int* arr=nullptr;
+    T* arr=nullptr;
 };

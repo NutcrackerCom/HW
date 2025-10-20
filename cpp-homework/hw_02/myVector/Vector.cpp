@@ -1,6 +1,7 @@
 #include "Vector.h"
 
-bool Vector::push_back(int num)
+template <class T>
+bool Vector<T>::push_back(T num)
 {
     if(capacity == len)
       {
@@ -11,24 +12,16 @@ bool Vector::push_back(int num)
       return true;
 }
 
-bool Vector::pop_back()
+template <class T>
+bool Vector<T>::pop_back()
 {
     if(len == 0) return false;
     len--;
     return true;
 }
 
-int Vector::get_capacity() const
-{
-    return capacity;
-}
-
-int Vector::get_size() const
-{
-    return len;
-}
-
-bool Vector::insert(size_t index, int num)
+template <class T>
+bool Vector<T>::insert(size_t index, T num)
 {
     if(index >= len) return push_back(num);
     else
@@ -38,7 +31,7 @@ bool Vector::insert(size_t index, int num)
         if(!resize()) return false;
       }
       len++;
-      int buf=arr[index];
+      T buf=arr[index];
       arr[index] = num;
       for(size_t i=index+1; i<len; i++)
       {
@@ -48,10 +41,11 @@ bool Vector::insert(size_t index, int num)
     return true;
 }
 
-bool Vector::insert(size_t index, const Vector& vec)
+template <class T>
+bool Vector<T>::insert(size_t index, const Vector& vec)
 {
     int new_capacity = static_cast<size_t>(koef_expansion*(capacity+vec.len));
-    int* new_arr = new int[new_capacity];
+    T* new_arr = new T[new_capacity];
     for(size_t i=0; i<index;i++)
     {
       new_arr[i]=arr[i];
@@ -71,7 +65,8 @@ bool Vector::insert(size_t index, const Vector& vec)
     return true;
 }
 
-bool Vector::erase(size_t index)
+template <class T>
+bool Vector<T>::erase(size_t index)
 {
     if(index > len)
       {
@@ -88,7 +83,8 @@ bool Vector::erase(size_t index)
       return true;
 }
 
-bool Vector::erase(size_t start, size_t stop)
+template <class T>
+bool Vector<T>::erase(size_t start, size_t stop)
 {
     if(start >len || start > stop) return false;
       if(stop >= len)
@@ -99,7 +95,7 @@ bool Vector::erase(size_t start, size_t stop)
       else
       {
         size_t new_capacity = static_cast<size_t>(koef_expansion*(len-(stop-start)));
-        int* new_arr = new int[new_capacity];
+        T* new_arr = new T[new_capacity];
         if(!new_arr) return false;
         size_t diff = stop-start;
         for(size_t i=0; i<start; i++)
@@ -118,28 +114,21 @@ bool Vector::erase(size_t start, size_t stop)
       }
       return true;
 }
- 
-/*Vector Vector::for_each(int start, int stop, int(*op)(int, int))
-{
-  if(start >len || start < 0 || start > stop || stop > len) return *this;
-  
-  for(size_t i=start; i<=stop; i++)
-  {
-    //...
-  }
-}*/
 
-int& Vector::operator[](int index)
+template <class T>
+T& Vector<T>::operator[](int index)
 {
     return arr[index];
 }
 
-int Vector::operator[](int index) const
+template <class T>
+T Vector<T>::operator[](int index) const
 {
     return arr[index];
 }
 
-Vector& Vector::operator=(const Vector& _arr)
+template <class T>
+Vector<T>& Vector<T>::operator=(const Vector& _arr)
 {
     if(_arr == *this) return *this;
     Vector c_arr(_arr);
@@ -147,7 +136,8 @@ Vector& Vector::operator=(const Vector& _arr)
     return *this;
 }
 
-bool Vector::operator==(const Vector& _arr) const
+template <class T>
+bool Vector<T>::operator==(const Vector& _arr) const
 {
     if(len != _arr.len) return false;
     for(size_t i=0; i<len; i++)
@@ -157,15 +147,17 @@ bool Vector::operator==(const Vector& _arr) const
     return true;
 }
 
-bool Vector::operator!=(const Vector& _arr) const
+template <class T>
+bool Vector<T>::operator!=(const Vector& _arr) const
 {
   return !(*this == _arr);
 }
 
-bool Vector::resize(int n)
+template <class T>
+bool Vector<T>::resize(int n)
 {
     capacity=static_cast<size_t>(koef_expansion*(capacity+n));
-    int* new_arr = new int[capacity];
+    T* new_arr = new T[capacity];
     if(!new_arr) return false;
     std::copy(arr, arr+len, new_arr);
     std::swap(arr, new_arr);
@@ -173,31 +165,10 @@ bool Vector::resize(int n)
     return true;
 }
 
-void Vector::swap(Vector& _arr)
+template <class T>
+void Vector<T>::swap(Vector<T>& _arr)
 {
     std::swap(capacity, _arr.capacity);
     std::swap(len, _arr.len);
     std::swap(arr, _arr.arr);
-}
-
-std::ostream& operator<<(std::ostream& os, const Vector& vec)
-{
-    for(size_t i=0; i<vec.len; i++)
-    {
-        os << vec.arr[i] << " ";
-    }
-    return os;
-}
-
-std::istream& operator>>(std::istream& is, Vector& vec)
-{
-  std::string data;
-  std::getline(is, data);
-  std::stringstream ss(data);
-  int num;
-  while(ss>>num)
-  {
-    vec.push_back(num);
-  }
-  return is;
 }
