@@ -18,16 +18,20 @@ public:
       len = 0;
     }
 
-    Vector(const Vector<T>& _arr): Vector(_arr.len, 0)
+    Vector(const Vector<T>& _arr) : capacity(_arr.capacity), len(_arr.len), arr(new T[capacity])
     {
-        std::copy(_arr.arr, _arr.arr + _arr.len, arr);
+        for(size_t i = 0; i < len; i++) {
+            arr[i] = _arr.arr[i]; // Используем оператор присваивания, а не побитовое копирование
+        }
     }
 
     Vector(size_t n, T num): capacity(static_cast<size_t>(koef_expansion*n))
                              , len(n)
                              , arr(new T[capacity])
     {
-        std::fill(arr, arr+n, num);
+      for(size_t i = 0; i < n; i++) {
+        arr[i] = num;
+      }
     }
       
     Vector(std::initializer_list<T> lst): capacity(static_cast<size_t>(koef_expansion*lst.size()))
@@ -51,7 +55,7 @@ public:
 
     bool pop_back();
 
-    int get_capacity() const
+    size_t get_capacity() const
     {
       return capacity;
     }
@@ -69,9 +73,9 @@ public:
 
     bool erase(size_t start, size_t stop);
 
-    T& operator[](int index);
+    T& operator[](size_t index);
 
-    T operator[](int index) const;
+    const T& operator[](size_t index) const;
 
     Vector& operator=(const Vector& _arr);
 
@@ -80,18 +84,11 @@ public:
     bool operator!=(const Vector& _arr) const;
 
     template<class U>
-    friend std::ostream& operator<<(std::ostream& os, const Vector<U>& vec)
-    {
-    for(size_t i=0; i<vec.len; i++)
-    {
-        os << vec.arr[i] << " ";
-    }
-    return os;
-    }
+    friend std::ostream& operator<<(std::ostream& os, const Vector<U>& vec);
 
 private:
     
-    bool resize(int n=0);
+    bool resize(size_t n=0);
 
     void swap(Vector<T>& _arr);
 
@@ -99,3 +96,5 @@ private:
     size_t len=0;
     T* arr=nullptr;
 };
+
+#include "Vector.hpp"

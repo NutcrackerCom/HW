@@ -116,13 +116,13 @@ bool Vector<T>::erase(size_t start, size_t stop)
 }
 
 template <class T>
-T& Vector<T>::operator[](int index)
+T& Vector<T>::operator[](size_t index)
 {
     return arr[index];
 }
 
 template <class T>
-T Vector<T>::operator[](int index) const
+const T& Vector<T>::operator[](size_t index) const
 {
     return arr[index];
 }
@@ -153,8 +153,18 @@ bool Vector<T>::operator!=(const Vector& _arr) const
   return !(*this == _arr);
 }
 
+template<class U>
+std::ostream& operator<<(std::ostream& os, const Vector<U>& vec)
+{
+  for(size_t i=0; i<vec.len; i++)
+  {
+    os << vec.arr[i] << " ";
+  }
+  return os;
+}
+
 template <class T>
-bool Vector<T>::resize(int n)
+bool Vector<T>::resize(size_t n)
 {
     capacity=static_cast<size_t>(koef_expansion*(capacity+n));
     T* new_arr = new T[capacity];
