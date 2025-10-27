@@ -1,65 +1,64 @@
+//https://leetcode.com/problems/merge-two-sorted-lists/description/
+/*
+You are given the heads of two sorted linked lists list1 and list2.
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+Return the head of the merged linked list.
+*/
+
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
- struct ListNode {
-     int val;
-     ListNode *next;
-     ListNode() : val(0), next(nullptr) {}
-     ListNode(int x) : val(x), next(nullptr) {}
-     ListNode(int x, ListNode *next) : val(x), next(next) {}
- };
- 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1==nullptr) return list2;
+        if(list2==nullptr) return list1;
 
-        ListNode* head1 = list1;
-        ListNode* head2 = list2;
-        std::vector<int> vec;
+        ListNode *head = list1->val<=list2->val ? list1:list2;
+        ListNode *temp = head;
 
-        while (head1!=nullptr || head2!=nullptr)
-        {   
-            if(head1!=nullptr)
-            {
-                vec.push_back(head1->val);
-                head1 = head1->next;
-            }
-            if(head2!=nullptr)
-            {
-                vec.push_back(head2->val);
-                std::cout << "a";
-                head2 = head2->next;
-            }
-        }
-        std::sort(vec.begin(), vec.end());
-        ListNode *head = new ListNode();
-        ListNode *curr = head;
-        for(auto i: vec)
+        if(list1->val<=list2->val) list1=list1->next;
+        else list2=list2->next;
+
+        while (list1!=nullptr && list2!=nullptr)
         {
-            curr->next= new ListNode(i);
-            curr = curr->next;
+            if(list1->val<=list2->val)
+            {         
+                temp->next=list1;
+                list1=list1->next;
+            }
+            else
+            {
+                temp->next=list2;
+                list2=list2->next;
+            }
+            temp=temp->next;
         }
-
-        curr = head->next;
-        while (curr!=nullptr)
-        {
-            std::cout << curr->val;
-            curr=curr->next;
-        }
+        if(list1!=nullptr) temp->next=list1;
+        if(list2!=nullptr) temp->next=list2;
         
-        return head->next;
+        return head;
     }
 };
 
 int main()
 {
-    ListNode a = 1;
+    ListNode a = {3};
     ListNode b = {2, &a};
-    ListNode c = {3, &b};
-    ListNode a1 = 4;
-    ListNode b1 = {5, &a1};
-    ListNode c1 = {6, &b1};
+    ListNode list1 = {1, &b};
+
+    ListNode a1 = {3};
+    ListNode b1 = {2, &a1};
+    ListNode list2 = {1, &b1};
+    
     Solution s;
-    s.mergeTwoLists(&c, nullptr);
+    s.mergeTwoLists(&list1, &list2);
 }

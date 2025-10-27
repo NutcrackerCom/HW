@@ -1,3 +1,8 @@
+//https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+/*
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -13,38 +18,24 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        std::vector<int> vec;
-        ListNode* curr = head;
-        int buf=head->val;
-        vec.push_back(buf);
-        while (curr!=nullptr)
-        {
-            std::cout << curr->val << " val \n";
-            if(buf!=curr->val)
-            {
-                buf=curr->val;
-                vec.push_back(buf);
-                std::cout << curr->val << " added \n";
-            }
-            curr=curr->next;
-        }
-        ListNode* res = new ListNode();
-        curr = res;
-        for(auto i: vec)
-        {
-            std::cout << i << " in vec \n";
-            curr->next = new ListNode(i);
-            curr=curr->next;
-        }
-
-        curr = res;
-        while (curr!=nullptr)
-        {
-            std::cout << curr->val;
-            curr=curr->next;
-        }
-        return res->next;
         
+        if(head==nullptr) return head;
+        if(head->next==nullptr) return head;
+        ListNode* curr = head->next;
+        ListNode* buff=head;
+        while (curr!=nullptr)
+        {
+            std::cout<< curr->val<<std::endl;
+            if(head->val!=curr->val)
+            {
+                head->next=curr;
+                head=head->next;
+                std::cout<<"added "<< curr->val<<std::endl;
+            }
+            else head->next=nullptr;
+            curr=curr->next;
+        }      
+        return buff;
     }
 };
 
@@ -53,10 +44,9 @@ int main()
     ListNode a = 1;
     ListNode b = {1, &a};
     ListNode c = {3, &b};
-    ListNode a1 = 4;
-    ListNode b1 = {5, &a1};
-    ListNode c1 = {6, &b1};
+    ListNode d = {3, &c};
+    ListNode e = {4, &d};
     Solution s;
-    s.deleteDuplicates(&c);
+    s.deleteDuplicates(nullptr);
     //s.mergeTwoLists(&c, nullptr);
 }
