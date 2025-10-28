@@ -20,29 +20,28 @@ struct ListNode {
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        ListNode* buff = head;
-        ListNode* buff_n = head;
-        int temp;
-        while (buff!=nullptr)
-        {
-            if(buff->next!=nullptr)
-            {
-                buff_n = buff->next->next;
-                temp = buff->next->val;
-                buff->next->val = buff->val;
-                buff->val = temp;
-            }
-            else
-            {
-                print(head);
-                return head;
-            }
-            buff = buff_n;
-        }
-        print(head);
-        return nullptr;
+    if (!head || !head->next) return head;
+    
+    ListNode* curr = head;
+    ListNode* prev = nullptr;
+    ListNode* newHead = head->next;
+    
+    while (curr && curr->next) {
+        ListNode* first = curr;
+        ListNode* second = curr->next;
+        ListNode* nextPair = second->next;
         
+        second->next = first;
+        first->next = nextPair;
+        if (prev) {
+            prev->next = second;
+        }
+        prev = first;
+        curr = nextPair;
     }
+    print(newHead);
+    return newHead;
+}
 
     void print(ListNode* head)
     {
@@ -53,7 +52,7 @@ public:
             buff=buff->next;
         }
         std::cout << std::endl;
-    }
+    }   
 };
 
 int main()
