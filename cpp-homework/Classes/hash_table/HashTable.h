@@ -20,8 +20,17 @@ public:
 
     bool count(T key);
 
+    HashTable& operator=(const HashTable& table);
+
+    bool operator==(const HashTable& table);
+
+    ~HashTable() = default;
+
 private:
-    const size_t capacity = 200;
+
+    void swap(HashTable<T>& _table);
+
+    size_t capacity = 200;
     std::vector<std::list<T>> table;
     size_t size = 0;
 };
