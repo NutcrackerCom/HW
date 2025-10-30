@@ -15,5 +15,7 @@
 * **21** Merge Two Sorted Lists
 * **24** Swap Nodes in Pairs
 * **83** Remove Duplicates from Sorted List
+* **92** Reverse Linked List II
+* **148** Sort List (Time Limit Exceeded) (Bubble Sort)
 * **206** Reverse Linked List
 * **1290** Convert Binary Number in a Linked List to Integer
