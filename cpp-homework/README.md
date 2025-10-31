@@ -14,6 +14,7 @@
 * **19** Remove Nth Node From End of List
 * **21** Merge Two Sorted Lists
 * **24** Swap Nodes in Pairs
+* **61** Rotate List
 * **83** Remove Duplicates from Sorted List
 * **92** Reverse Linked List II
 * **148** Sort List (Time Limit Exceeded) (Bubble Sort)
