@@ -20,3 +20,7 @@
 * **148** Sort List (Time Limit Exceeded) (Bubble Sort)
 * **206** Reverse Linked List
 * **1290** Convert Binary Number in a Linked List to Integer
+* **3217** Delete Nodes From Linked List Present in Array
+### hw_04
+* **965** Univalued Binary Tree
+* **2236** Root Equals Sum of Children
