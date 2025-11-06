@@ -25,4 +25,9 @@
 * **226** Invert Binary Tree
 * **700** Search in a Binary Search Tree
 * **965** Univalued Binary Tree
+* **1365** How Many Numbers Are Smaller Than the Current Number
+* **1464** Maximum Product of Two Elements in an Array
 * **2236** Root Equals Sum of Children
+* **2974** Minimum Number Game
+* **3194** Minimum Average of Smallest and Largest Elements
+* **3668** Restore Finishing Order
