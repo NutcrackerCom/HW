@@ -30,4 +30,5 @@
 * **2236** Root Equals Sum of Children
 * **2974** Minimum Number Game
 * **3194** Minimum Average of Smallest and Largest Elements
+* **3289** The Two Sneaky Numbers of Digitville
 * **3668** Restore Finishing Order
